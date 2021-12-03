@@ -807,6 +807,7 @@ class App{
             const banner = $(`.banner.${type}`);
             banner.addClass('visible');
             banner.find('.banner-message').text(message);
+            // submit logic
             if(type != 'error') {
                 this.#hintTimeout = setTimeout(hideBanners, 3000);
             }
