@@ -13,6 +13,8 @@ class App{
     #talentSelected = new Set();
     #totalMax=20;
     #isEnd = false;
+    #name = "";
+    #server = "https://www.thuasta.cn:51/upload";
     #selectedExtendTalent = null;
     #hintTimeout;
     #specialthanks;
@@ -59,6 +61,7 @@ class App{
                 退学模拟器<br>
                 <div style="font-size:1.5rem; font-weight:normal;">这垃圾学校我一秒也不想呆了</div>
             </div>
+            <input id="name" placeholder="请输入你的昵称，将用于统计成就"/>
             <button id="restart" class="mainbtn"><span class="iconfont">&#xe6a7;</span>立即退学</button>
         </div>
         `);
@@ -75,7 +78,14 @@ class App{
 
         indexPage
             .find('#restart')
-            .click(()=>this.switch('talent'));
+            .click(()=>{
+                if (indexPage.find('#name').val() === ""){
+                    this.hint("请输入你的昵称")
+                }else{
+                    this.#name = indexPage.find('#name').val()
+                    this.switch('talent')
+                }
+            });
 
         indexPage
             .find('#achievement')
@@ -781,8 +791,18 @@ class App{
             },
         }
 
-        $$on('achievement', ({name})=>{
+        $$on('achievement', ({name})=>{ 
+            this.sendAchievement(this.#name, name)
             this.hint(`解锁成就【${name}】`, 'success');
+        })
+    }
+
+    sendAchievement(username, achievementName){
+        $.get({
+            url: this.#server,
+            crossDomain: true,
+            data: {'username': username, 'achievementName': achievementName},
+            async: true,
         })
     }
 
