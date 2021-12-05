@@ -303,6 +303,12 @@ class Property {
         return this.get(this.TYPES.LIF) < 1;
     }
 
+    getSummaryData(){
+        const age = this.get(this.TYPES.AGE);
+        const {event, talent} = this.getAgeData(age);
+        return {age, event, talent};
+    }
+
     ageNext() {
         this.change(this.TYPES.AGE, 1);
         const age = this.get(this.TYPES.AGE);

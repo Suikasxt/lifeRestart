@@ -156,6 +156,9 @@ class Life {
             SUM: this.#property.get(this.#property.TYPES.SUM),
         };
     }
+    getSummaryData(){
+        return this.#property.getSummaryData();
+    }
 
     getLastRecord() {
         return this.#property.getLastRecord();

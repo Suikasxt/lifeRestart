@@ -14,6 +14,7 @@ class App{
     #totalMax=20;
     #isEnd = false;
     #name = "";
+    #achievementlist = [];
     #server = "https://www.thuasta.cn:51/upload";
     #selectedExtendTalent = null;
     #hintTimeout;
@@ -61,7 +62,7 @@ class App{
                 退学模拟器<br>
                 <div style="font-size:1.5rem; font-weight:normal;">这垃圾学校我一秒也不想呆了</div>
             </div>
-            <input id="name" placeholder="请输入你的昵称，将用于统计成就"/>
+            <input id="inputname" placeholder="请输入你的昵称，将用于统计成就"/>
             <button id="restart" class="mainbtn"><span class="iconfont">&#xe6a7;</span>立即退学</button>
         </div>
         `);
@@ -79,10 +80,10 @@ class App{
         indexPage
             .find('#restart')
             .click(()=>{
-                if (indexPage.find('#name').val() === ""){
+                if (indexPage.find('#inputname').val() === ""){
                     this.hint("请输入你的昵称")
                 }else{
-                    this.#name = indexPage.find('#name').val()
+                    this.#name = indexPage.find('#inputname').val()
                     this.switch('talent')
                 }
             });
@@ -526,11 +527,12 @@ class App{
         // Summary
         const summaryPage = $(`
         <div id="main">
-            <div class="head">退学通知书 No xxx</div>
-            xx同学:
-                你在清华大学生存了 n 个月
-                你因 事件 而离开学校
-                你曾获得成就 成就
+            <div class="head"><span>退学通知书 No <span id="id"></span></span></div>
+            <span>
+                <span id="name"></span>同学:
+                你在清华大学生存了 <span id="age"></span> 个月
+            </span>
+            <span>你获得成就：<span id="achievementlist"></span></span>
             <ul id="judge" class="judge">
                 <li class="grade2"><span>成绩单</li>
                 <li class="grade2"><span>颜值：</span><span>9级 美若天仙</span></li>
@@ -558,6 +560,7 @@ class App{
             .find('#again')
             .click(()=>{
                 this.times ++;
+                this.#achievementlist = [];
                 this.#life.talentExtend(this.#selectedExtendTalent);
                 this.#selectedExtendTalent = null;
                 this.#talentSelected.clear();
@@ -777,7 +780,19 @@ class App{
                         const { judge, grade } = summary(type, value);
                         return `<li class="grade${grade}"><span>${discription}：</span><span>${value} ${judge}</span></li>`;
                     };
-
+                    summaryPage.find('#name').empty();
+                    summaryPage.find('#name').append(this.#name);
+                    summaryPage.find('#id').empty();
+                    summaryPage.find('#id').append(parseInt(Math.random()*10000));
+                    const data = this.#life.getSummaryData();
+                    summaryPage.find('#age').empty();
+                    summaryPage.find('#age').append(data.age);
+                    const achievementList = this.#life.getAchievements();
+                    summaryPage.find('#achievementlist').empty();
+                    this.#achievementlist.forEach(achievement =>{
+                        summaryPage.find('#achievementlist').append(`${achievement} `);
+                    })
+                    //summaryPage.find('#event').append(this.#life.getLastRecord());
                     judge.append(`
                         ${format('颜值', 'CHR')}
                         ${format('智力', 'INT')}
@@ -792,6 +807,7 @@ class App{
         }
 
         $$on('achievement', ({name})=>{ 
+            this.#achievementlist.push(name)
             this.sendAchievement(this.#name, name)
             this.hint(`解锁成就【${name}】`, 'success');
         })
