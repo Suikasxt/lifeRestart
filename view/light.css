@@ -90,10 +90,11 @@ body {
   position: fixed;
   top: 55%;
   left: 50%;
-  font-size: 30px;
+  font-size: 25px;
   transform: translate(-50%, -50%);
   border: 1px solid gray;
-  padding: 2px;
+  padding: 5px;
+  width: 500px;
 }
 #restart {
   position: fixed;
