@@ -74,6 +74,27 @@ body {
   box-sizing: border-box;
   position: relative;
 }
+#summary{
+  padding-left: 3%;
+  padding-right: 3%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 30rem;
+  top: 13%;
+  height: 62%;
+  text-align: center;
+  box-sizing: border-box;
+  position: relative;
+}
+#summary .judge{
+  margin: 2px;
+  margin-bottom: 10px;
+}
+#summary #talents{
+  margin: 2px;
+  padding: 0px;
+}
 
 #title {
   position: fixed;
@@ -94,7 +115,7 @@ body {
   transform: translate(-50%, -50%);
   border: 1px solid gray;
   padding: 5px;
-  width: 500px;
+  width: 350px;
 }
 #restart {
   position: fixed;
@@ -316,7 +337,7 @@ ul#total li .achievementtitle,
   flex-direction: column;
   justify-content: center;
   height: 5.2rem;
-  font-size: 1.4rem;
+  font-size: 1rem;
   white-space: nowrap;
   color: #000;
 }
@@ -354,7 +375,7 @@ ul#total li .achievementtitle,
 }
 
 .selectlist>li {
-  margin-bottom: 0.6rem;
+  /*margin-bottom: 0.6rem;*/
   display: block;
   border: 1px #EEEEEE solid;
   border-radius: 0.2rem;
@@ -364,6 +385,9 @@ ul#total li .achievementtitle,
   user-select: none;
   position: relative;
   cursor: pointer;
+}
+#summary .selectlist>li{
+  font-size: 1rem;
 }
 
 .selectlist>li:last-child {
@@ -452,7 +476,7 @@ ul#total li .achievementtitle,
   flex-direction: column;
   border: 1px solid #EEEEEE;
   border-radius: 4px;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 
 .judge>li {

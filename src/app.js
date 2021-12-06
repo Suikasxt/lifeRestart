@@ -15,7 +15,7 @@ class App{
     #isEnd = false;
     #name = "";
     #achievementlist = [];
-    #server = "https://www.thuasta.cn:51/upload";
+    #server = "http://www.thuasta.cn:21200/upload";
     #selectedExtendTalent = null;
     #hintTimeout;
     #specialthanks;
@@ -62,7 +62,7 @@ class App{
                 退学模拟器<br>
                 <div style="font-size:1.5rem; font-weight:normal;">这垃圾学校我一秒也不想呆了</div>
             </div>
-            <input id="inputname" placeholder="请输入你的昵称，将用于统计成就"/>
+            <input id="inputname" placeholder="输入你的昵称，用于统计成就"/>
             <button id="restart" class="mainbtn"><span class="iconfont">&#xe6a7;</span>立即退学</button>
         </div>
         `);
@@ -355,7 +355,7 @@ class App{
         groups.CHR = getBtnGroups("颜值", 0, 10); // 颜值 charm CHR
         groups.INT = getBtnGroups("智力", 0, 10); // 智力 intelligence INT
         groups.STR = getBtnGroups("体质", 0, 10); // 体质 strength STR
-        groups.MNY = getBtnGroups("家境", 0, 10); // 家境 money MNY
+        groups.MNY = getBtnGroups("社交", 0, 10); // 社交 money MNY
 
         const ul = propertyPage.find('#propertyAllocation');
 
@@ -419,7 +419,7 @@ class App{
             <div class="btn-area">
                 <button id="auto" class="mainbtn">自动播放</button>
                 <button id="auto2x" class="mainbtn">自动播放2x</button>
-                <button id="summary" class="mainbtn">人生总结</button>
+                <button id="summarybtn" class="mainbtn">人生总结</button>
                 <button id="domToImage" class="mainbtn">人生回放</button>
             </div>
             <div class="domToImage2wx">
@@ -434,7 +434,7 @@ class App{
                 if(this.#isEnd) return;
                 const trajectory = this.#life.next();
                 const { age, content, isEnd } = trajectory;
-                const li = $(`<li><span>${age}岁：</span><span>${
+                const li = $(`<li><span>${age}月：</span><span>${
                     content.map(
                         ({type, description, grade, name, postEvent}) => {
                             switch(type) {
@@ -451,7 +451,7 @@ class App{
                 if(isEnd) {
                     $(document).unbind("keydown");
                     this.#isEnd = true;
-                    trajectoryPage.find('#summary').show();
+                    trajectoryPage.find('#summarybtn').show();
                     trajectoryPage.find('#auto').hide();
                     trajectoryPage.find('#auto2x').hide();
                     // trajectoryPage.find('#domToImage').show();
@@ -461,7 +461,7 @@ class App{
                 <li><span>颜值</span><span>${property.CHR}</span></li>
                 <li><span>智力</span><span>${property.INT}</span></li>
                 <li><span>体质</span><span>${property.STR}</span></li>
-                <li><span>家境</span><span>${property.MNY}</span></li>
+                <li><span>社交</span><span>${property.MNY}</span></li>
                 <li><span>快乐</span><span>${property.SPR}</span></li>
                 `);
             });
@@ -488,7 +488,7 @@ class App{
             .hide();
 
         trajectoryPage
-            .find('#summary')
+            .find('#summarybtn')
             .click(()=>{
                 clearInterval(this.#autoTrajectory);
                 this.#autoTrajectory = null;
@@ -526,32 +526,27 @@ class App{
 
         // Summary
         const summaryPage = $(`
-        <div id="main">
-            <div class="head"><span>退学通知书 No <span id="id"></span></span></div>
-            <span>
-                <span id="name"></span>同学:
-                你在清华大学生存了 <span id="age"></span> 个月
-            </span>
-            <span>你获得成就：<span id="achievementlist"></span></span>
-            <ul id="judge" class="judge">
-                <li class="grade2"><span>成绩单</li>
-                <li class="grade2"><span>颜值：</span><span>9级 美若天仙</span></li>
-                <li class="grade0"><span>智力：</span><span>4级 智力一般</span></li>
-                <li class="grade0"><span>体质：</span><span>1级 极度虚弱</span></li>
-                <li class="grade0"><span>家境：</span><span>6级 小康之家</span></li>
-                <li class="grade0"><span>享年：</span><span>3岁 早夭</span></li>
-                <li class="grade0"><span>快乐：</span><span></span>3级 不太幸福的人生</li>
-            </ul>
-            <div class="head" style="height:auto;">天赋，你可以选一个，下辈子还能抽到</div>
-            <ul id="talents" class="selectlist" style="flex: 0 1 auto;">
-                <li class="grade2b">黑幕（面试一定成功）</li>
-            </ul>
-            <button id="again" class="mainbtn"><span class="iconfont">&#xe6a7;</span>退学Remake</button>
-            12月10日 大礼堂
-            自动化系学生节 小米 自控玩家
-            扫描二维码，自控你的清华人生
-            <div align="center">
-                <img src="../img/result.png" width="25%" />
+        <div id="main" style="background-image: url(summary.jpg);background-size: 100% 100%;">
+            <div id="summary">
+                <span>
+                    <span id="name"></span>同学:
+                    你在清华大学生存了 <span id="age"></span> 个月
+                </span>
+                <span><span id="achievementlist"></span></span>
+                <ul id="judge" class="judge">
+                    <li class="grade2"><span>成绩单</li>
+                    <li class="grade2"><span>颜值：</span><span>9级 美若天仙</span></li>
+                    <li class="grade0"><span>智力：</span><span>4级 智力一般</span></li>
+                    <li class="grade0"><span>体质：</span><span>1级 极度虚弱</span></li>
+                    <li class="grade0"><span>社交：</span><span>6级 小康之家</span></li>
+                    <li class="grade0"><span>享年：</span><span>3月 早夭</span></li>
+                    <li class="grade0"><span>快乐：</span><span></span>3级 不太幸福的人生</li>
+                </ul>
+                <div class="head" style="height:auto;">天赋，你可以选一个，下辈子还能抽到</div>
+                <ul id="talents" class="selectlist" style="flex: 0 1 auto;">
+                    <li class="grade2b">黑幕（面试一定成功）</li>
+                </ul>
+                <button id="again" class="mainbtn"><span class="iconfont">&#xe6a7;</span>退学Remake</button>
             </div>
         </div>
         `);
@@ -720,7 +715,7 @@ class App{
                 clear: ()=>{
                     this.#currentPage = 'trajectory';
                     trajectoryPage.find('#lifeTrajectory').empty();
-                    trajectoryPage.find('#summary').hide();
+                    trajectoryPage.find('#summarybtn').hide();
                     trajectoryPage.find('#auto').show();
                     trajectoryPage.find('#auto2x').show();
                     this.#isEnd = false;
@@ -789,15 +784,20 @@ class App{
                     summaryPage.find('#age').append(data.age);
                     const achievementList = this.#life.getAchievements();
                     summaryPage.find('#achievementlist').empty();
-                    this.#achievementlist.forEach(achievement =>{
-                        summaryPage.find('#achievementlist').append(`${achievement} `);
-                    })
+                    if (this.#achievementlist.length == 0){
+                        summaryPage.find('#achievementlist').append("你没有获得成就。");
+                    }else{
+                        summaryPage.find('#achievementlist').append("你获得成就:");
+                        this.#achievementlist.forEach(achievement =>{
+                            summaryPage.find('#achievementlist').append(` ${achievement}`);
+                        })
+                    }
                     //summaryPage.find('#event').append(this.#life.getLastRecord());
                     judge.append(`
                         ${format('颜值', 'CHR')}
                         ${format('智力', 'INT')}
                         ${format('体质', 'STR')}
-                        ${format('家境', 'MNY')}
+                        ${format('社交', 'MNY')}
                         ${format('快乐', 'SPR')}
                         ${format('享年', 'AGE')}
                         ${format('总评', 'SUM')}
@@ -851,16 +851,17 @@ class App{
     }
 
     setTheme(theme) {
+        return
         const themeLink = $(document).find('#themeLink');
 
         switch(theme){
             case 'dark':
             case 'light':
             case 'halloween':
-                themeLink.attr('href', `${theme}.css`);
+                themeLink.attr('href', `/view/${theme}.css`);
                 break;
             default:
-                themeLink.attr('href', 'light.css');
+                themeLink.attr('href', '/view/light.css');
         }
     }
 

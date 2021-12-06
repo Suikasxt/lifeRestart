@@ -229,7 +229,7 @@ class App {
                             CHR, chr, c, C 表示颜值
                             INT, int, i, I 表示智力
                             STR, str, s, S 表示体质
-                            MNY, mny, m, M 表示家境
+                            MNY, mny, m, M 表示社交
                         必填
 
                 <[+/-]value>
@@ -487,7 +487,7 @@ class App {
         const trajectory = this.#life.next();
         const { age, content, isEnd } = trajectory;
         if(isEnd) this.#isEnd = true;
-        return `${age}岁：\t${
+        return `${age}月：\t${
             content.map(
                 ({type, description, grade, name, postEvent}) => {
                     switch(type) {
@@ -511,7 +511,7 @@ class App {
 颜值(CHR)         ${CHR}
 智力(INT)         ${INT}
 体质(STR)         ${STR}
-家境(MNY)         ${MNY}
+社交(MNY)         ${MNY}
         `
     }
 
@@ -541,7 +541,7 @@ class App {
 颜值(CHR)         ${property.CHR}
 智力(INT)         ${property.INT}
 体质(STR)         ${property.STR}
-家境(MNY)         ${property.MNY}
+社交(MNY)         ${property.MNY}
 快乐(SPR)         ${property.SPR}`
     }
 
@@ -628,7 +628,7 @@ class App {
             format('颜值', 'CHR'),
             format('智力', 'INT'),
             format('体质', 'STR'),
-            format('家境', 'MNY'),
+            format('社交', 'MNY'),
             format('快乐', 'SPR'),
             format('享年', 'AGE'),
             format('总评', 'SUM'),

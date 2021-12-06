@@ -35,7 +35,7 @@ async function debug() {
         CHR: 5,                     // 颜值 charm CHR
         INT: 5,                     // 智力 intelligence INT
         STR: 5,                     // 体质 strength STR
-        MNY: 5,                     // 家境 money MNY
+        MNY: 5,                     // 社交 money MNY
         SPR: 5,                     // 快乐 spirit SPR
         // AGE: 100,
         TLT: [1134, 1048, 1114],    // 天赋 talent TLT
@@ -54,7 +54,7 @@ async function debug() {
         const { age, content } = trajectory;
         console.debug(
             `---------------------------------`,
-            `\n-- ${age} 岁\n   `,
+            `\n-- ${age} 月\n   `,
             content.map(
                 ({type, description, rate, name, postEvent}) => {
                     switch(type) {

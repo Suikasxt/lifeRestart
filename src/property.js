@@ -9,7 +9,7 @@ class Property {
         CHR: "CHR", // 颜值 charm CHR
         INT: "INT", // 智力 intelligence INT
         STR: "STR", // 体质 strength STR
-        MNY: "MNY", // 家境 money MNY
+        MNY: "MNY", // 社交 money MNY
         SPR: "SPR", // 快乐 spirit SPR
         LIF: "LIF", // 生命 life LIFE
         TLT: "TLT", // 天赋 talent TLT
@@ -25,8 +25,8 @@ class Property {
         HINT: "HINT", // 最高智力 High Intelligence
         LSTR: "LSTR", // 最低体质 Low Strength
         HSTR: "HSTR", // 最高体质 High Strength
-        LMNY: "LMNY", // 最低家境 Low Money
-        HMNY: "HMNY", // 最高家境 High Money
+        LMNY: "LMNY", // 最低社交 Low Money
+        HMNY: "HMNY", // 最高社交 High Money
         LSPR: "LSPR", // 最低快乐 Low Spirit
         HSPR: "HSPR", // 最高快乐 High Spirit
 
